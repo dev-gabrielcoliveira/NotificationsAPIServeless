@@ -27,38 +27,39 @@ public class NotificationFunction
 
         using var reader = new StreamReader(req.Body);
         var requestBody = await reader.ReadToEndAsync();
-        
+
         var notification = JsonSerializer.Deserialize<NotificationDto>(requestBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
+        // Apenas serializa para JSON limpo. O Azure Storage Queue já cuida do Base64 sozinho!
         string jsonMessage = JsonSerializer.Serialize(notification);
-        string base64Message = Convert.ToBase64String(Encoding.UTF8.GetBytes(jsonMessage));
 
         var response = req.CreateResponse(System.Net.HttpStatusCode.Accepted);
         await response.WriteStringAsync("Notificação aceita e enfileirada para processamento com sucesso!");
 
         return new MultiResponse
         {
-            Message = base64Message,
+            Message = jsonMessage,
             HttpResponse = response
         };
     }
 
-    // 2. Consumidor: Acionado automaticamente quando chega nova mensagem na fila
     [Function("ProcessNotificationQueue")]
     public void ProcessQueue(
-        [QueueTrigger("notifications-queue", Connection = "AzureWebJobsStorage")] string base64Message)
+        [QueueTrigger("notifications-v3", Connection = "AzureWebJobsStorage")] string message)
     {
-        var bytes = Convert.FromBase64String(base64Message);
-        var jsonMessage = Encoding.UTF8.GetString(bytes);
-        var notification = JsonSerializer.Deserialize<NotificationDto>(jsonMessage);
+        var partes = message.Split('|');
 
-        _logger.LogInformation($"[PROCESSAMENTO DE FILA] Destinatário: {notification?.Recipient} | Assunto: {notification?.Subject} | Corpo: {notification?.Body}");
+        string recipient = partes[0];
+        string subject = partes[1];
+        string body = partes[2];
+
+        _logger.LogInformation($"Destinatário: {recipient} | Assunto: {subject} | Corpo: {body}");
     }
 }
 
 public class MultiResponse
 {
-    [QueueOutput("notifications-queue", Connection = "AzureWebJobsStorage")]
+    [QueueOutput("notifications-v2", Connection = "AzureWebJobsStorage")]
     public string Message { get; set; } = string.Empty;
     public HttpResponseData HttpResponse { get; set; } = null!;
 }
