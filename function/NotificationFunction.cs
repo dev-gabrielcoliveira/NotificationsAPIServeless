@@ -44,8 +44,7 @@ public class NotificationFunction
     }
 
     [Function("ProcessNotificationQueue")]
-    public void ProcessQueue(
-        [QueueTrigger("notifications-v3", Connection = "AzureWebJobsStorage")] string message)
+    public void ProcessQueue([QueueTrigger("notifications-v3", Connection = "AzureWebJobsStorage")] string message)
     {
         var partes = message.Split('|');
 
@@ -53,7 +52,9 @@ public class NotificationFunction
         string subject = partes[1];
         string body = partes[2];
 
-        _logger.LogInformation($"Destinatário: {recipient} | Assunto: {subject} | Corpo: {body}");
+        const string divisor = "=====================================================================================================================";
+
+        _logger.LogInformation($"\n{divisor}\n[NOTIFICAÇÃO PROCESSADA]\nDestinatário: {recipient} | Assunto: {subject} | Corpo: {body}\n{divisor}\n");
     }
 }
 
