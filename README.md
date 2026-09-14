@@ -45,8 +45,8 @@ Configure o arquivo `local.settings.json` na raiz do projeto com a connection st
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
   }
-}
+} ```
 
 Execute a Azure Function:
 
-dotnet run
+``` dotnet run ```
