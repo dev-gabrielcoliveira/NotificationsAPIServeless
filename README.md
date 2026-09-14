@@ -36,17 +36,17 @@ Certifique-se de ter instalado em sua máquina:
    ```powershell
    azurite --silent
 
-Configure o arquivo `local.settings.json` na raiz do projeto com a connection string de desenvolvimento:
+**Configure o arquivo `local.settings.json` na raiz do projeto com a connection string de desenvolvimento:**
 
-```json
+```powershell
 {
   "IsEncrypted": false,
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
   }
-} ```
+} 
 
-Execute a Azure Function:
+**Execute a Azure Function:**
 
-``` dotnet run ```
+```powershell dotnet run
