@@ -1,0 +1,58 @@
+[
+  {
+    "name": "CreateNotification",
+    "scriptFile": "NotificationsAPI.Serverless.dll",
+    "entryPoint": "NotificationsAPI.Serverless.NotificationFunction.Run",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "req",
+        "direction": "In",
+        "type": "httpTrigger",
+        "authLevel": "Anonymous",
+        "methods": [
+          "post"
+        ],
+        "route": "notifications",
+        "properties": {}
+      },
+      {
+        "name": "Message",
+        "direction": "Out",
+        "type": "queue",
+        "dataType": "String",
+        "queueName": "notifications-queue",
+        "connection": "AzureWebJobsStorage",
+        "properties": {}
+      },
+      {
+        "name": "HttpResponse",
+        "type": "http",
+        "direction": "Out"
+      }
+    ]
+  },
+  {
+    "name": "ProcessNotificationQueue",
+    "scriptFile": "NotificationsAPI.Serverless.dll",
+    "entryPoint": "NotificationsAPI.Serverless.NotificationFunction.ProcessQueue",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "base64Message",
+        "direction": "In",
+        "type": "queueTrigger",
+        "dataType": "String",
+        "queueName": "notifications-queue",
+        "connection": "AzureWebJobsStorage",
+        "properties": {}
+      }
+    ]
+  }
+]
