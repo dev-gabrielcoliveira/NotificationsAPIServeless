@@ -47,4 +47,5 @@ Certifique-se de ter instalado em sua máquina:
     } 
 
 3. **Execute a Azure Function:**
-    ```powershell dotnet run
+    ```powershell 
+    dotnet run
