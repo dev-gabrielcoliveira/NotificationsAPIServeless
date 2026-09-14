@@ -17,10 +17,10 @@
 
 Este projeto faz parte de um ecossistema de microsserviços. Para atender aos requisitos de **arquitetura orientada a eventos**, **eficiência de recursos** e **desacoplamento** sem a necessidade de um broker containerizado pesado (como o RabbitMQ), a aplicação foi migrada para um modelo **Serverless**.
 
-* **Produtor (`UsersAPI` / Outros serviços):** Publica mensagens diretamente na Fila do Azure Storage (`notifications-queue`) assim que eventos de negócios ocorrem (ex: cadastro de usuário).
-* **Consumidor (`NotificationsAPI.Serverless`):** Uma Azure Function acionada por gatilho de fila (`[QueueTrigger]`). Ela executa sob demanda, processa a mensagem e envia a notificação de forma assídua e sem manter recursos ociosos.
+Notificação ao Usuário e Efetuar a Compra
 
----
+* **Produtor (`UsersAPI` e `PaymentsAPI`):** Publica mensagens diretamente na Fila do Azure Storage (`notifications-queue`) assim que eventos de negócios ocorrem (ex: cadastro de usuário).
+* **Consumidor (`NotificationsAPI.Serverless`):** Uma Azure Function acionada por gatilho de fila (`[QueueTrigger]`). Ela executa sob demanda, processa a mensagem e envia a notificação de forma assídua e sem manter recursos ociosos.
 
 ## 🚀 Como Executar o Projeto Localmente
 
