@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NotificationsAPI.Serverless")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+394d0c447074d823d054bd37b6b9baa5040e490d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+79c0264ff134e95dbce7a9c95e80773accf7aed4")]
 [assembly: System.Reflection.AssemblyProductAttribute("NotificationsAPI.Serverless")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NotificationsAPI.Serverless")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
